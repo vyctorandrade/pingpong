@@ -63,9 +63,14 @@
         y: 100,
         w: line.w,
         h: 200,
+        _move: function (){
+          this.y = ball.y
+        },
         draw: function () {
           canvasCtx.fillStyle = "#ffffff"
           canvasCtx.fillRect(this.x, this.y, this.w, this.h)
+         
+          this._move()
         },
       }
 
