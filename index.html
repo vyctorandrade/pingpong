@@ -77,6 +77,12 @@
       const score = {
         human: 1,
         computer: 2,
+        increaseHuman: function(){
+          this.human ++
+        },
+        increaseComputer: function(){
+          this.Computer ++
+        },
         draw: function () {
           canvasCtx.font = "bold 72px Arial"
           canvasCtx.textAlign = "center"
@@ -94,7 +100,32 @@
         speed: 5,
         directionY: 1,
         directionX: 1,
+
         _calcPosition:function(){
+
+          // Verifica se o jogador 1 fez um ponto (  x  largura do campo)
+
+          if(this.x > field.w){
+            // Verifica se a raquete direita está na posição Y da bola
+            if(
+            this.y + this.r > rightPaddle.y && 
+            this.y - this.r < rightPaddle.y + rightPaddle.h
+            ){
+              // rebate a bola invertendo o sinal de X
+              this._reverseX()
+            } else {
+              // Pontuar o jogador 1
+              score.increaseHuman()
+              this._pointUp()
+            }
+          }
+
+
+
+
+
+
+
           // Veririfca as laterais superior e inferior do campo
           if (
           (this.y - this.r < 0 && this.directionY < 0) ||
@@ -113,6 +144,11 @@
           // 1 * -1 = -1
           //  -1 * -1 = 1
           this.directionY *= -1
+        },
+
+        _pointUp: function (){
+          this.x = field.w / 2
+          this.y = field.h / 2
         },
      
         _move: function () {
